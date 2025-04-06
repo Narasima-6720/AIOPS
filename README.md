@@ -1,108 +1,66 @@
-# VM Health Status Monitor
+# 🐳 Dockerfile Generator
 
-A shell script to monitor the health status of Ubuntu virtual machines based on CPU, Memory, and Disk usage.
+A GenAI powered tool that generates optimized Dockerfiles based on programming language input. This project uses Ollama with the Llama3 model to create Dockerfiles following best practices.
 
-## Features
+## 📋 Prerequisites
 
-- Monitors key system resources:
-  - CPU usage
-  - Memory usage
-  - Disk usage
-- Provides health status assessment (healthy/unhealthy)
-- Supports detailed explanation mode
-- Ubuntu-specific checks
-- Threshold-based monitoring (60% utilization)
+### Installing Ollama
 
-## Prerequisites
-
-- Ubuntu operating system
-- Bash shell
-- Standard system utilities (`top`, `free`, `df`)
-
-## Installation
-
-1. Clone or download the script to your system
-2. Make the script executable:
+1. **Download and Install Ollama**
    ```bash
-   chmod +x vm_health_status.sh
+   # For Linux
+   curl -fsSL https://ollama.com/install.sh | sh
+
+   # For MacOS
+   brew install ollama
    ```
 
-## Usage
+2. **Start Ollama Service**
+   ```bash
+   ollama serve
+   ```
 
-### Basic Health Check
+3. **Pull Llama3 Model**
+   ```bash
+   ollama pull llama3.2:1b
+   ```
 
-To perform a basic health check:
+## 🚀 Project Setup
+
+1. **Create Virtual Environment**
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate  # On Linux/MacOS
+   # or
+   .\venv\Scripts\activate  # On Windows
+   ```
+
+2. **Install Dependencies**
+   ```bash
+   pip3 install -r requirements.txt
+   ```
+
+3. **Run the Application**
+   ```bash
+   python3 generate_dockerfile.py
+   ```
+
+## 💡 How It Works
+
+1. The script takes a programming language as input (e.g., Python, Node.js, Java)
+2. Connects to the Ollama API running locally
+3. Generates an optimized Dockerfile with best practices for the specified language
+4. Returns the Dockerfile content with explanatory comments
+
+## 📝 Example Usage
 
 ```bash
-./vm_health_status.sh
+python3 generate_dockerfile.py
+Enter programming language: python
+# Generated Dockerfile will be displayed...
 ```
 
-This will display:
-- Overall VM health status
-- Current usage percentages for CPU, Memory, and Disk
-
-### Detailed Explanation
-
-To get a detailed explanation of the health status:
-
-```bash
-./vm_health_status.sh explain
-```
-
-This will show:
-- All basic health check information
-- Detailed explanation of why the system is healthy or unhealthy
-- Comparison of current usage against thresholds
-
-## How It Works
-
-1. **Ubuntu Check**
-   - Verifies if the system is running Ubuntu
-   - Exits if not running on Ubuntu
-
-2. **Resource Monitoring**
-   - CPU Usage: Uses `top` command to get current CPU utilization
-   - Memory Usage: Uses `free` command to calculate memory usage percentage
-   - Disk Usage: Uses `df` command to get root partition usage
-
-3. **Health Assessment**
-   - Healthy: All resources are below 60% utilization
-   - Unhealthy: Any resource exceeds 60% utilization
-
-4. **Explanation Mode**
-   - Activated with "explain" argument
-   - Provides detailed reasoning for the health status
-   - Shows comparison against thresholds
-
-## Thresholds
-
-- CPU Usage: 60%
-- Memory Usage: 60%
-- Disk Usage: 60%
-
-If any of these thresholds are exceeded, the VM is considered unhealthy.
-
-## Output Example
-
-Basic output:
-```
-VM Health Status: healthy
-Current Usage:
-CPU: 25%
-Memory: 45%
-Disk: 38%
-```
-
-With explanation:
-```
-VM Health Status: healthy
-Current Usage:
-CPU: 25%
-Memory: 45%
-Disk: 38%
-
-Explanation: All resources are below 60% utilization threshold:
-- CPU usage is 25% (threshold: 60%)
-- Memory usage is 45% (threshold: 60%)
-- Disk usage is 38% (threshold: 60%)
-```
+## 🏆 Troubleshooting
+- Make sure Ollama service is running before executing the script.
+- Ensure the correct model is downloaded.
+- Adapt best practices for other programming languages as needed.
